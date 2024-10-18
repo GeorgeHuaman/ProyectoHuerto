@@ -15,20 +15,20 @@ public class SeedsInventory : MonoBehaviour
     {
         inventorySeeds = new Dictionary<Seed, int>()
         {
-            { Seed.colMorada, 10 },
-            { Seed.colBlanca, 5 },
-            { Seed.lechugaRepollo, 0 },
-            { Seed.lechugaCrespa, 8 },
-            { Seed.remolacha, 12 },
-            { Seed.brocoli, 3 },
-            { Seed.coliflor, 7 },
-            { Seed.culantro, 4 },
-            { Seed.perejil, 6 },
-            { Seed.apio, 9 },
-            { Seed.calabaza, 2 },
-            { Seed.pimiento, 11 },
-            { Seed.zanahoria, 0 },
-            { Seed.acelga, 5 }
+            { Seed.colMorada, 1 },
+            { Seed.colBlanca, 1 },
+            { Seed.lechugaRepollo, 1 },
+            { Seed.lechugaCrespa, 1 },
+            { Seed.remolacha, 1 },
+            { Seed.brocoli, 1 },
+            { Seed.coliflor, 1 },
+            { Seed.culantro, 1 },
+            { Seed.perejil, 1 },
+            { Seed.apio, 1 },
+            { Seed.calabaza, 1 },
+            { Seed.pimiento, 1 },
+            { Seed.zanahoria, 1 },
+            { Seed.acelga, 1 }
         };
     }
     public bool HaveSeeds(Seed seedSelected)
@@ -40,6 +40,13 @@ public class SeedsInventory : MonoBehaviour
         else
         {
             return false;
+        }
+    }
+    public void ReduceSeeds(Seed seedSelected)
+    {
+        if (inventorySeeds.ContainsKey(seedSelected) && inventorySeeds[seedSelected] > 0)
+        {
+            inventorySeeds[seedSelected] --;
         }
     }
 }

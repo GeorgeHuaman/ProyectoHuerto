@@ -15,8 +15,8 @@ public class SelectSeed : MonoBehaviour
     {
         instance = this;
     }
-    public void DropdownValueChanged(TMP_Dropdown change)
+    public void DropdownValueChanged()
     {
-        actualSeed = (Seed)change.value;
+        actualSeed = (Seed)seedDropdown.value;
     }
 }

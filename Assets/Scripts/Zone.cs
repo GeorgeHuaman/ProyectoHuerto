@@ -7,24 +7,31 @@ public class Zone : MonoBehaviour
 {
     public SelectSeed selectSeed;
     public SeedsInventory seedsInventory;
-    public SpatialNetworkObject seedPrefab;
+    public GameObject seed;
+    public TypeSeed typeSeedObject;
+    //public SpatialNetworkObject seedPrefab;
+    //public SpawnNetworkObjectRequest request;
     public bool inZone;
-    public SpatialNetworkObject seedPlant;
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.E) && inZone && !seedPlant)
+        if (Input.GetKeyDown(KeyCode.E) && inZone)
         {
             Plant();
         }
+
     }
     public void Plant()
     {
-
-        bool tieneSemillas = seedsInventory.HaveSeeds(selectSeed.actualSeed);
-        if (tieneSemillas)
+        bool haveSeeds= seedsInventory.HaveSeeds(selectSeed.actualSeed);
+        if (haveSeeds)
         {
             Debug.Log("Hay semillas disponibles para: " + selectSeed.actualSeed);
-            SpatialBridge.spaceContentService.SpawnNetworkObject(seedPrefab, transform.position, Quaternion.identity);
+            seed.SetActive(true);
+            typeSeedObject.typeSeed = selectSeed.actualSeed;
+            //typeSeedObject = Instantiate(seedPrefab, transform.position, Quaternion.identity).GetComponent<TypeSeed>();
+            //typeSeedObject.Zone = this; 
+            seedsInventory.ReduceSeeds(selectSeed.actualSeed);
+            //request = SpatialBridge.spaceContentService.SpawnNetworkObject(seedPrefab, transform.position, Quaternion.identity);
             //seedPlant.GetComponent<TypeSeed>().SelectTypeSeed(selectSeed.actualSeed);
         }
         else
