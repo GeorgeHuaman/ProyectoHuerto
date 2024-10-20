@@ -17,6 +17,7 @@ public class TypeSeed : MonoBehaviour
     private bool isReady;
     private bool inZone;
     [HideInInspector]public Zone Zone;
+    private bool isWater;
     // Start is called before the first frame update
     void Start()
     {
@@ -27,31 +28,38 @@ public class TypeSeed : MonoBehaviour
     public void Update()
     {
         GrowProcces();
-        if (Input.GetKeyDown(KeyCode.E) && inZone && isReady)
+        if (Input.GetKeyDown(KeyCode.E) && inZone)
         {
-            Harvest();
+            if (isReady)
+                Harvest();
+            else
+                isWater = true;
         }
     }
 
     private void GrowProcces()
     {
-        if (timeNeedle > time)
+        if (isWater)
         {
-            timeNeedle -= Time.deltaTime;
-            int timeLeftInt = Mathf.FloorToInt(timeNeedle);
-            timeLeftText = timeLeftInt.ToString();
-            textDisplay.text = typeSeed.ToString() + timeLeftText;
+            if (timeNeedle > time)
+            {
+                timeNeedle -= Time.deltaTime;
+                int timeLeftInt = Mathf.FloorToInt(timeNeedle);
+                timeLeftText = timeLeftInt.ToString();
+                textDisplay.text = typeSeed.ToString() + timeLeftText;
+            }
+            else
+            {
+                textDisplay.text = typeSeed.ToString() + " Listo";
+                isReady = true;
+            }
         }
         else
         {
-            textDisplay.text = typeSeed.ToString() + " Listo";
-            isReady = true;
+            textDisplay.text = typeSeed.ToString() + " Sin regar";
         }
+        
     }
-    //public void SelectTypeSeed()
-    //{
-    //    typeSeed = SelectSeed.instance.actualSeed;
-    //}
     public void Harvest()
     {
         Products harvestedProduct = (Products)typeSeed;
